@@ -23,6 +23,11 @@ class shared_ptr{
     int *count;
 
 public:
+    shared_ptr(){
+        count = new int;
+        *count = 1;
+    }
+
     shared_ptr(T *po) : p(po){
         count = new int;
         *count = 1;
@@ -38,6 +43,7 @@ public:
             std::cout << "p is deleted: " << *count << std::endl;
             delete count;
         }
+        std::cout << *count << std::endl;
 
     }
 
@@ -77,7 +83,36 @@ public:
         std::cout << "p is deleted: " << *ptr.count << std::endl;
     }
 };
+
+template<class T, class ... Args>
+shared_ptr<T> make_shared(Args &&... args)
+{
+    T* tmp = new T(args...);
+    shared_ptr<T> ptr (tmp);
+    return ptr;
 }
 
+}
+
+
+int main()
+{
+//    double *int1 = new double;
+//    *int1 = 1;
+//    new_ptr::shared_ptr<double> p1(int1);
+//    {
+//        new_ptr::shared_ptr<double> p2 = p1;
+//        std::shared_ptr<int> p_std(new int);
+//    std::shared_ptr<int> p1;
+//    }
+//    new_ptr::shared_ptr<int> p3(new int);
+//    new_ptr::shared_ptr<int> p4(new int);
+
+    new_ptr::shared_ptr<int> p1;
+    p1 = new_ptr::make_shared<int> (4);
+    std::cout << *p1 << std::endl;
+
+    return 0;
+}
 
 

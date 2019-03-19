@@ -7,13 +7,22 @@
 #include <iostream>
 #include <memory>
 
+/*
+ *
+ *  \namespace new_ptr namespace is to distinguish
+ *  the costum implemnted shared_ptr from the std's
+ *
+ */
 
 namespace new_ptr{
 
 /** \brief
  *
  * template implementation of a
- * smart pointer
+ * smart pointer.
+ *
+ * Usage: new_ptr::shared_ptr<Type> p;
+ *        p = new_ptr::make_shared<Type> (Value);
  *
  *
  */
@@ -23,6 +32,11 @@ class shared_ptr{
     int *count;
 
 public:
+    shared_ptr(){
+        count = new int;
+        *count = 1;
+    }
+
     shared_ptr(T *po) : p(po){
         count = new int;
         *count = 1;
@@ -77,22 +91,16 @@ public:
         std::cout << "p is deleted: " << *ptr.count << std::endl;
     }
 };
-}
 
-int main()
+template<class T, class ... Args>
+shared_ptr<T> make_shared(Args &&... args)
 {
-    double *int1 = new double;
-    *int1 = 1;
-    new_ptr::shared_ptr<double> p1(int1);
-    {
-        new_ptr::shared_ptr<double> p2 = p1;
-        std::shared_ptr<int> p_std(new int);
-    std::shared_ptr<int> p1;
-    }
-    new_ptr::shared_ptr<int> p3(new int);
-    new_ptr::shared_ptr<int> p4(new int);
-
-    return 0;
+    T* tmp = new T(args...);
+    shared_ptr<T> ptr (tmp);
+    return ptr;
 }
+
+}
+
 
 
