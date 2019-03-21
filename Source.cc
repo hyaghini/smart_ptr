@@ -35,8 +35,6 @@
 
 int main()
 {
-//    double *int1 = new double;
-//    *int1 = 1;
 
     {
         using namespace new_ptr;

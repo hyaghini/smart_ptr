@@ -46,8 +46,8 @@ namespace new_ptr{
  */
 template<typename T>
 class shared_ptr{
-    T *p;
-    int *count;
+    T *p;        ///< Pointer to the shared memory
+    int *count;  ///< Keeps track of number of shared pointers
 
 public:
     /*!
@@ -75,6 +75,8 @@ public:
 
     /*!
      * @brief Overloaded * operator to return a reference to the shared memory
+     *
+     * @return T& : Reference to the shared memory
      */
     T & operator*();
 
@@ -82,7 +84,7 @@ public:
      * @brief Overloading the assignment operator '='
      *
      * @param input : The pointer from which we are copying
-     * @return A copied shared_ptr
+     * @return shared_ptr& : A copied shared_ptr
      */
     shared_ptr& operator=(const shared_ptr &input);
 
@@ -93,6 +95,13 @@ public:
      * @return An instance of shared_ptr
      */
     shared_ptr(const shared_ptr &inputPtr);
+
+    /*!
+     * @brief Gets the number of pointer that are pointing to the shared memory
+     *
+     * @return int : Number of shared pointers
+     */
+    int getNumberOfPointers();
 };
 
 /*!

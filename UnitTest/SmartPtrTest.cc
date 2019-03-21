@@ -8,7 +8,24 @@
 #include "../SmartPtrTemplate.h"
 
 
-TEST(SmartPtr, SharedPtr)
+TEST(SharedPointer_HandlingNumberOfPointers, Check_Constructors_Destructor_AssignOperator)
+{
+    using namespace new_ptr;
+    shared_ptr<int> ptr1 = make_shared<int>(10);
+
+    ASSERT_EQ(ptr1.getNumberOfPointers(), 1);
+
+    {
+        shared_ptr<int> ptr2 = ptr1;
+        shared_ptr<int> ptr3;
+        ptr3 = ptr1;
+        ASSERT_EQ(ptr1.getNumberOfPointers(), 3);
+    }
+    ASSERT_EQ(ptr1.getNumberOfPointers(), 1);
+}
+
+
+TEST(SharedPointer, Check_Assigning_Reading_Values)
 {
     new_ptr::shared_ptr<int> p1;
     p1 = new_ptr::make_shared<int> (5);
@@ -20,27 +37,6 @@ TEST(SmartPtr, SharedPtr)
     ASSERT_EQ(*p1, 7);
 }
 
-TEST(SmartPtr, CheckRawPtr)
-{
-    int *p1 = new int(4);
-    new_ptr::shared_ptr<int> ptr(p1);
-    ASSERT_EQ(*ptr, 4);
-
-//    delete p1;
-//    ASSERT_EQ(*ptr, 4);
-}
-
-TEST(SmartPtr, CheckScopes)
-{
-    new_ptr::shared_ptr<int> p1 = new_ptr::make_shared<int>(9);
-    {
-        new_ptr::shared_ptr<int> p2 = p1;
-        ASSERT_EQ(*p2, *p1);
-    }
-
-    ASSERT_EQ(9, *p1);
-
-}
 
 int main(int argc, char** argv)
 {

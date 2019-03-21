@@ -38,9 +38,9 @@
 namespace new_ptr{
 
 template<typename T>
-shared_ptr<T>::shared_ptr(){
-    count = new int;
-    *count = 1;
+shared_ptr<T>::shared_ptr()
+{
+
 }
 
 template<typename T>
@@ -48,18 +48,18 @@ shared_ptr<T>::shared_ptr(T *po) : p(po){
     count = new int;
     *count = 1;
 
-    std::cout << "new p is created" << std::endl;
+    std::cout << "New pointer is created; Number of shared pointers = 1" << std::endl;
 }
 
 template<typename T>
 shared_ptr<T>::~shared_ptr()
 {
     (*count)--;
-    std::cout << "inside destructor; count = " << *count << std::endl;
+    std::cout << "A shared pointer is destructed; Number of shared pointers = " << *count << std::endl;
     if(*count == 0)
     {
         delete p;
-        std::cout << "p is deleted: " << *count << std::endl;
+        std::cout << "The shared pointer memory is freed" << std::endl;
         delete count;
     }
 }
@@ -67,12 +67,10 @@ shared_ptr<T>::~shared_ptr()
 template<typename T>
 shared_ptr<T>::shared_ptr(const shared_ptr &ptr)
 {
-    std::cout << "called the copy constructor" << std::endl;
-
     this->p = ptr.p;
     (*(ptr.count))++;
     this->count = ptr.count;
-    std::cout << "p is deleted: " << *ptr.count << std::endl;
+    std::cout << "Copy constructor is called; Number of shared pointers = " << *(ptr.count) << std::endl;
 }
 
 template<typename T>
@@ -84,12 +82,19 @@ T & shared_ptr<T>::operator*()
 template<typename T>
 shared_ptr<T>& shared_ptr<T>::operator=(const shared_ptr &input)
 {
-    std::cout << "called the = operator" << std::endl;
     this->p = input.p;
     (*input.count)++;
-    std::cout << "count is = " << *input.count << std::endl;
     this->count = input.count;
+
+    std::cout << "Assignment operator is called; Number of shared pointers = " << *(input.count) << std::endl;
+
     return *this;
+}
+
+template<typename T>
+int shared_ptr<T>::getNumberOfPointers()
+{
+    return *count;
 }
 
 template<class T, class ... Args>
