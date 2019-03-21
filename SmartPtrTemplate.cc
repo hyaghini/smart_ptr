@@ -1,88 +1,96 @@
-/*
- * tempTest.cc
+/*!
+ * **************************************************
+ * @file SmartPtrTemplate.cc
+ * @brief Implementation of class members of the shared pointer.
  *
- *  Created on: Mar 11, 2019
- *      Author: hyaghini
+ * This file implements the shared_ptr constructors, destructor
+ * and overloading operators.The class member functions keep track
+ * of number of pointers to an address of memory using a counter.
+ * When the counter is 0 the memory is freed in the class destructor.
+ *
+ * @sa SmartPtrTemplate.h
+ *
+ * @section  LICENSE
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details at
+ * https://www.gnu.org/copyleft/gpl.html
+ *
+ * @author Hamed Yaghini (hamed84.yaghini@gmail.com)
+ * @date 03/20/2019
+ *
+ * ****************************************************
  */
+
+
 #include <iostream>
 #include <memory>
+#include "SmartPtrTemplate.h"
 
 
 namespace new_ptr{
 
-/** \brief
- *
- * template implementation of a
- * smart pointer
- *
- *
- */
 template<typename T>
-class shared_ptr{
-    T *p;
-    int *count;
+shared_ptr<T>::shared_ptr(){
+    count = new int;
+    *count = 1;
+}
 
-public:
-    shared_ptr(){
-        count = new int;
-        *count = 1;
-    }
+template<typename T>
+shared_ptr<T>::shared_ptr(T *po) : p(po){
+    count = new int;
+    *count = 1;
 
-    shared_ptr(T *po) : p(po){
-        count = new int;
-        *count = 1;
+    std::cout << "new p is created" << std::endl;
+}
 
-        std::cout << "new p is created" << std::endl;
-    }
-    ~shared_ptr()
+template<typename T>
+shared_ptr<T>::~shared_ptr()
+{
+    (*count)--;
+    std::cout << "inside destructor; count = " << *count << std::endl;
+    if(*count == 0)
     {
-        (*count)--;
-        if(*count == 0)
-        {
-            delete p;
-            std::cout << "p is deleted: " << *count << std::endl;
-            delete count;
-        }
-        std::cout << *count << std::endl;
-
+        delete p;
+        std::cout << "p is deleted: " << *count << std::endl;
+        delete count;
     }
+}
 
-    T & operator*()
-    {
-        return *p;
-    }
+template<typename T>
+shared_ptr<T>::shared_ptr(const shared_ptr &ptr)
+{
+    std::cout << "called the copy constructor" << std::endl;
 
-    /**
-     *
-     * Overloading the assign operator =
-     *
-     */
-    shared_ptr& operator=(const shared_ptr &input)
-    {
-        std::cout << "called the = operator" << std::endl;
-        this->p = input.p;
-        (*input.count)++;
-        std::cout << "count is = " << *input.count << std::endl;
-        this->count = input.count;
-        return *this;
-    }
+    this->p = ptr.p;
+    (*(ptr.count))++;
+    this->count = ptr.count;
+    std::cout << "p is deleted: " << *ptr.count << std::endl;
+}
 
-    /**
-     *
-     * Copy Constructor
-     *
-     *
-     */
-    shared_ptr(const shared_ptr &ptr)
-    {
-        std::cout << "called the copy constructor" << std::endl;
+template<typename T>
+T & shared_ptr<T>::operator*()
+{
+    return *p;
+}
 
-        this->p = ptr.p;
-        (*(ptr.count))++;
-        this->count = ptr.count;
-        std::cout << "p is deleted: " << *ptr.count << std::endl;
-    }
-};
+template<typename T>
+shared_ptr<T>& shared_ptr<T>::operator=(const shared_ptr &input)
+{
+    std::cout << "called the = operator" << std::endl;
+    this->p = input.p;
+    (*input.count)++;
+    std::cout << "count is = " << *input.count << std::endl;
+    this->count = input.count;
+    return *this;
+}
 
 template<class T, class ... Args>
 shared_ptr<T> make_shared(Args &&... args)
@@ -92,27 +100,10 @@ shared_ptr<T> make_shared(Args &&... args)
     return ptr;
 }
 
+template class shared_ptr<double>;
+template class shared_ptr<int>;
+template shared_ptr<int> make_shared<int>(int&&);
+template shared_ptr<double> make_shared<double>(double&&);
+
 }
-
-
-int main()
-{
-//    double *int1 = new double;
-//    *int1 = 1;
-//    new_ptr::shared_ptr<double> p1(int1);
-//    {
-//        new_ptr::shared_ptr<double> p2 = p1;
-//        std::shared_ptr<int> p_std(new int);
-//    std::shared_ptr<int> p1;
-//    }
-//    new_ptr::shared_ptr<int> p3(new int);
-//    new_ptr::shared_ptr<int> p4(new int);
-
-    new_ptr::shared_ptr<int> p1;
-    p1 = new_ptr::make_shared<int> (4);
-    std::cout << *p1 << std::endl;
-
-    return 0;
-}
-
 

@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(basic_test)
+project(SmartPtrTest)
 
 ################################
 # GTest
@@ -17,8 +17,8 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable( runUnitTests SmartPtrTest.cc )
+add_executable( TestSmartPtr SmartPtrTest.cc ../SmartPtrTemplate.cc)
 # Link test executable against gtest & gtest_main
-target_link_libraries(runUnitTests gtest gtest_main)
-add_test( runUnitTests runUnitTests )
+target_link_libraries(TestSmartPtr gtest gtest_main)
+add_test( TestSmartPtr runUnitTests )
 
