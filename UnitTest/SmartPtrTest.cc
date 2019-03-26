@@ -12,12 +12,13 @@ class shared_ptrTest : public ::testing::Test {
 protected:
     new_ptr::shared_ptr<int> ptr0_;
     new_ptr::shared_ptr<int> ptr1_;
+    new_ptr::shared_ptr<int> ptr2_;
+    new_ptr::shared_ptr<int> ptr3_;
     void SetUp() override {
         ptr0_ = new_ptr::make_shared<int>(1);
         ptr1_ = new_ptr::make_shared<int>(4);
+        ptr2_ = new_ptr::make_shared<int>(10);
     }
-
-    new_ptr::shared_ptr<int> ptr2_ = new_ptr::make_shared<int>(10);
 };
 
 
@@ -55,6 +56,14 @@ TEST_F(shared_ptrTest, Check_HandlingNumOfPtrs)
     ASSERT_EQ(ptr2_.use_count(), 1);
 }
 
+TEST_F(shared_ptrTest, Check_Unique_Function)
+{
+    ASSERT_EQ(ptr3_.unique(), false);
+    ptr3_ = new_ptr::make_shared<int>(20);
+    ASSERT_EQ(ptr3_.unique(), true);
+    ptr0_ = ptr3_;
+    ASSERT_EQ(ptr3_.unique(), false);
+}
 
 int main(int argc, char** argv)
 {

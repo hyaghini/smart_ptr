@@ -54,13 +54,16 @@ shared_ptr<T>::shared_ptr(T *po) : p(po){
 template<typename T>
 shared_ptr<T>::~shared_ptr()
 {
-    (*count)--;
-//    std::cout << "A shared pointer is destructed; Number of shared pointers = " << *count << std::endl;
-    if(*count == 0)
+    if(count != nullptr)
     {
-        delete p;
-//        std::cout << "The shared pointer memory is freed" << std::endl;
-        delete count;
+        (*count)--;
+    //    std::cout << "A shared pointer is destructed; Number of shared pointers = " << *count << std::endl;
+        if(*count == 0)
+        {
+            delete p;
+    //        std::cout << "The shared pointer memory is freed" << std::endl;
+            delete count;
+        }
     }
 }
 
@@ -99,6 +102,23 @@ int shared_ptr<T>::use_count()
         return 0;
     }
     return *count;
+}
+
+template<typename T>
+bool shared_ptr<T>::unique()
+{
+    if(count == nullptr)
+    {
+        return false;
+    }
+    else if (*count == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 template<class T, class ... Args>

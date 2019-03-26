@@ -102,6 +102,14 @@ public:
      * @return int : Number of shared pointers
      */
     int use_count();
+
+    /*!
+     * @brief Returns whether the shared_ptr object does not share ownership
+     * over its pointer with other shared_ptr objects (i.e., it is unique).
+     *
+     * @return bool : True if this is a unique shared_ptr, false otherwise.
+     */
+    bool unique();
 };
 
 /*!
