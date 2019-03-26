@@ -29,7 +29,6 @@
  */
 
 
-
 #include "SmartPtrTemplate.h"
 
 
