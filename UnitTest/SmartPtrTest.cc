@@ -35,24 +35,24 @@ TEST_F(shared_ptrTest, Check_AssignmentOperator)
     ptr0_ = ptr1_;
     ASSERT_EQ(*ptr0_, *ptr1_);
 
-    ASSERT_EQ(ptr1_.getNumberOfPointers(), 2);
+    ASSERT_EQ(ptr1_.use_count(), 2);
 //    EXPECT_EQ(ptr0_.getNumberOfPointers(), 0);
 }
 
 
-TEST_F(shared_ptrTest, HandlingNumOfPtrs_Check_Constructors_Destructor_AssignOperator)
+TEST_F(shared_ptrTest, Check_HandlingNumOfPtrs)
 {
 
 
-    ASSERT_EQ(ptr2_.getNumberOfPointers(), 1);
+    ASSERT_EQ(ptr2_.use_count(), 1);
 
     {
         new_ptr::shared_ptr<int> ptr2 = ptr2_;
         new_ptr::shared_ptr<int> ptr3;
         ptr3 = ptr2_;
-        ASSERT_EQ(ptr2_.getNumberOfPointers(), 3);
+        ASSERT_EQ(ptr2_.use_count(), 3);
     }
-    ASSERT_EQ(ptr2_.getNumberOfPointers(), 1);
+    ASSERT_EQ(ptr2_.use_count(), 1);
 }
 
 

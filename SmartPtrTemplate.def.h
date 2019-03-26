@@ -1,6 +1,6 @@
 /*!
  * **************************************************
- * @file SmartPtrTemplate.cc
+ * @file SmartPtrTemplate.def.h
  * @brief Implementation of class members of the shared pointer.
  *
  * This file implements the shared_ptr constructors, destructor
@@ -40,7 +40,7 @@ namespace new_ptr{
 template<typename T>
 shared_ptr<T>::shared_ptr()
 {
-
+    count = nullptr;
 }
 
 template<typename T>
@@ -48,18 +48,18 @@ shared_ptr<T>::shared_ptr(T *po) : p(po){
     count = new int;
     *count = 1;
 
-    std::cout << "New pointer is created; Number of shared pointers = 1" << std::endl;
+//    std::cout << "New pointer is created; Number of shared pointers = 1" << std::endl;
 }
 
 template<typename T>
 shared_ptr<T>::~shared_ptr()
 {
     (*count)--;
-    std::cout << "A shared pointer is destructed; Number of shared pointers = " << *count << std::endl;
+//    std::cout << "A shared pointer is destructed; Number of shared pointers = " << *count << std::endl;
     if(*count == 0)
     {
         delete p;
-        std::cout << "The shared pointer memory is freed" << std::endl;
+//        std::cout << "The shared pointer memory is freed" << std::endl;
         delete count;
     }
 }
@@ -70,7 +70,7 @@ shared_ptr<T>::shared_ptr(const shared_ptr &ptr)
     this->p = ptr.p;
     (*(ptr.count))++;
     this->count = ptr.count;
-    std::cout << "Copy constructor is called; Number of shared pointers = " << *(ptr.count) << std::endl;
+//    std::cout << "Copy constructor is called; Number of shared pointers = " << *(ptr.count) << std::endl;
 }
 
 template<typename T>
@@ -86,14 +86,18 @@ shared_ptr<T>& shared_ptr<T>::operator=(const shared_ptr &input)
     (*input.count)++;
     this->count = input.count;
 
-    std::cout << "Assignment operator is called; Number of shared pointers = " << *(input.count) << std::endl;
+//    std::cout << "Assignment operator is called; Number of shared pointers = " << *(input.count) << std::endl;
 
     return *this;
 }
 
 template<typename T>
-int shared_ptr<T>::getNumberOfPointers()
+int shared_ptr<T>::use_count()
 {
+    if(count == nullptr)
+    {
+        return 0;
+    }
     return *count;
 }
 
@@ -104,11 +108,6 @@ shared_ptr<T> make_shared(Args &&... args)
     shared_ptr<T> ptr (tmp);
     return ptr;
 }
-
-template class shared_ptr<double>;
-template class shared_ptr<int>;
-template shared_ptr<int> make_shared<int>(int&&);
-template shared_ptr<double> make_shared<double>(double&&);
 
 }
 

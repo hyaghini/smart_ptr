@@ -101,7 +101,7 @@ public:
      *
      * @return int : Number of shared pointers
      */
-    int getNumberOfPointers();
+    int use_count();
 };
 
 /*!
@@ -116,5 +116,6 @@ shared_ptr<T> make_shared(Args &&... args);
 
 }
 
+#include "SmartPtrTemplate.def.h"
 
 #endif

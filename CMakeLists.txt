@@ -11,5 +11,4 @@ project(PtrProj)
 add_executable(
     PtrProj
     Source.cc
-    SmartPtrTemplate.cc
 )
