@@ -119,8 +119,8 @@ public:
  * @param Args : Value of the memory where pointer points to
  * @return An instance of the shared_ptr
  */
-template<class T, class ... Args>
-shared_ptr<T> make_shared(Args &&... args);
+template<typename T>
+shared_ptr<T> make_shared(T args);
 
 }
 

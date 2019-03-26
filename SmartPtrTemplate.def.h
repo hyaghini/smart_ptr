@@ -121,10 +121,18 @@ bool shared_ptr<T>::unique()
     }
 }
 
-template<class T, class ... Args>
-shared_ptr<T> make_shared(Args &&... args)
+//template<typename T, typename ... Args>
+//shared_ptr<T> make_shared(Args &&... args)
+//{
+//    T* tmp = new T(args...);
+//    shared_ptr<T> ptr (tmp);
+//    return ptr;
+//}
+
+template<typename T>
+shared_ptr<T> make_shared(T args)
 {
-    T* tmp = new T(args...);
+    T* tmp = new T(args);
     shared_ptr<T> ptr (tmp);
     return ptr;
 }
