@@ -73,6 +73,16 @@ public:
     ~unique_ptr();
 
     /*!
+     * @brief Copy Constructor for shared_ptr
+     *
+     * @param inputPtr : Reference to a pointer whose data will be used in the new shared pointer
+     * @return An instance of shared_ptr
+     */
+    unique_ptr(unique_ptr&& inputPtr);
+
+    unique_ptr(unique_ptr& inputPtr);
+
+    /*!
      * @brief Overloaded * operator to return a reference to the shared memory
      *
      * @return T& : Reference to the shared memory
@@ -85,22 +95,15 @@ public:
      * @param input : The pointer from which we are copying
      * @return shared_ptr& : A copied shared_ptr
      */
-    unique_ptr& operator=(const unique_ptr &input);
-
-    /*!
-     * @brief Copy Constructor for shared_ptr
-     *
-     * @param inputPtr : Reference to a pointer whose data will be used in the new shared pointer
-     * @return An instance of shared_ptr
-     */
-    unique_ptr(const unique_ptr &inputPtr);
+    unique_ptr& operator=(unique_ptr&& input);
+    unique_ptr& operator=(unique_ptr& input);
 
     T* get();
 
 };
 
 template<typename T>
-unique_ptr<T> make_unique(T arg);
+unique_ptr<T> make_unique(const T& arg);
 
 }
 

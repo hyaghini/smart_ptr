@@ -17,8 +17,14 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable( TestSmartPtr SmartPtrTest.cc)
+add_executable( TestSharedPtr SharedPtrTest.cc)
 # Link test executable against gtest & gtest_main
-target_link_libraries(TestSmartPtr gtest gtest_main)
-add_test( TestSmartPtr runUnitTests )
+target_link_libraries(TestSharedPtr gtest gtest_main)
+add_test( TestSharedPtr runUnitTests )
+
+
+add_executable( TestUniquePtr UniquePtrTest.cc)
+# Link test executable against gtest & gtest_main
+target_link_libraries(TestUniquePtr gtest gtest_main)
+add_test( TestUniquePtr runUnitTests )
 

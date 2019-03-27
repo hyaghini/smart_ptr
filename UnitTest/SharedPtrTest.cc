@@ -23,16 +23,6 @@ protected:
     }
 };
 
-class unique_ptrTest : public ::testing::Test{
-protected:
-    new_ptr::unique_ptr<int> ptr_u0_;
-    new_ptr::unique_ptr<int> ptr_u1_;
-    void SetUp() override {
-        ptr_u1_ = new_ptr::make_unique<int>(8);
-    }
-};
-
-
 TEST_F(shared_ptrTest, Check_Assigning_And_Reading)
 {
     ASSERT_EQ(*ptr0_, 1);
@@ -76,13 +66,6 @@ TEST_F(shared_ptrTest, Check_Unique_Function)
     ASSERT_EQ(ptr3_.unique(), false);
 }
 
-TEST_F(unique_ptrTest, Check_Constructors)
-{
-    ASSERT_EQ(ptr_u0_.get(), nullptr);
-    ASSERT_NE(ptr_u1_.get(), nullptr);
-    ptr_u0_ = ptr_u1_;
-    ASSERT_EQ(ptr_u1_.get(), nullptr);
-}
 
 int main(int argc, char** argv)
 {

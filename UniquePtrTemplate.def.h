@@ -56,10 +56,19 @@ unique_ptr<T>::~unique_ptr()
 }
 
 template<typename T>
-unique_ptr<T>::unique_ptr(const unique_ptr &ptr)
+unique_ptr<T>::unique_ptr(unique_ptr&& ptr)
 {
     this->p = ptr.p;
-    const_cast<unique_ptr&> (ptr).p = nullptr;
+//    const_cast<unique_ptr&> (ptr).p = nullptr;
+    ptr.p = nullptr;
+}
+
+template<typename T>
+unique_ptr<T>::unique_ptr(unique_ptr& ptr)
+{
+    this->p = ptr.p;
+//    const_cast<unique_ptr&> (ptr).p = nullptr;
+    ptr.p = nullptr;
 }
 
 template<typename T>
@@ -69,10 +78,20 @@ T & unique_ptr<T>::operator*()
 }
 
 template<typename T>
-unique_ptr<T>& unique_ptr<T>::operator=(const unique_ptr &input)
+unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr&& input)
 {
     this->p = input.p;
-    const_cast<unique_ptr&> (input).p = nullptr;
+//    const_cast<unique_ptr&> (input).p = nullptr;
+    input.p = nullptr;
+    return *this;
+}
+
+template<typename T>
+unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr& input)
+{
+    this->p = input.p;
+//    const_cast<unique_ptr&> (input).p = nullptr;
+    input.p = nullptr;
 
     return *this;
 }
@@ -84,7 +103,7 @@ T* unique_ptr<T>::get()
 }
 
 template<typename T>
-unique_ptr<T> make_unique(T arg)
+unique_ptr<T> make_unique(const T& arg)
 {
     T* tmp = new T(arg);
     unique_ptr<T> ptr(tmp);
