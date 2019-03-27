@@ -5,7 +5,7 @@
  *      Author: hyaghini
  */
 #include <gtest/gtest.h>
-#include "../SmartPtrTemplate.h"
+#include "../SharedPtrTemplate.h"
 
 
 class shared_ptrTest : public ::testing::Test {

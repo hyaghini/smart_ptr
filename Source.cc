@@ -29,7 +29,7 @@
  */
 
 
-#include "SmartPtrTemplate.h"
+#include "SharedPtrTemplate.h"
 
 
 int main()

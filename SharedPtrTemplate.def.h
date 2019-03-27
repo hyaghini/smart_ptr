@@ -1,6 +1,6 @@
 /*!
  * **************************************************
- * @file SmartPtrTemplate.def.h
+ * @file SharedPtrTemplate.def.h
  * @brief Implementation of class members of the shared pointer.
  *
  * This file implements the shared_ptr constructors, destructor
@@ -32,7 +32,7 @@
 
 #include <iostream>
 #include <memory>
-#include "SmartPtrTemplate.h"
+#include "SharedPtrTemplate.h"
 
 
 namespace new_ptr{

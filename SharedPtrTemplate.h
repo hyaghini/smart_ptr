@@ -1,6 +1,6 @@
 /*!
  * **************************************************
- * @file SmartPtrTemplate.h
+ * @file SharedPtrTemplate.h
  * @brief This class implements a smart pointer
  *
  * shared_ptr class allocates memory and returns a shared
@@ -124,6 +124,6 @@ shared_ptr<T> make_shared(T args);
 
 }
 
-#include "SmartPtrTemplate.def.h"
+#include "SharedPtrTemplate.def.h"
 
 #endif
