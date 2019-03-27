@@ -6,8 +6,8 @@
  * The shared_ptr class is used to define and test some
  * pointers inside the main function.
  *
- * @sa SmartPtrTemplate.h
- * @sa SmartPtrTemplate.cc
+ * @sa SharedPtrTemplate.h
+ * @sa SharedPtrTemplate.cc
  *
  * @section  LICENSE
  *
@@ -30,10 +30,17 @@
 
 
 #include "SharedPtrTemplate.h"
-
+#include "UniquePtrTemplate.h"
 
 int main()
 {
+    {
+        using namespace new_ptr;
+        int *tmp = new int;
+        *tmp = 9;
+        unique_ptr<int> p0(tmp);
+        unique_ptr<int> p1 = make_unique<int> (9);
+    }
 
     {
         using namespace new_ptr;

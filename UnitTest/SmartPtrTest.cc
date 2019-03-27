@@ -5,7 +5,9 @@
  *      Author: hyaghini
  */
 #include <gtest/gtest.h>
+#include <iostream>
 #include "../SharedPtrTemplate.h"
+#include "../UniquePtrTemplate.h"
 
 
 class shared_ptrTest : public ::testing::Test {
@@ -18,6 +20,15 @@ protected:
         ptr0_ = new_ptr::make_shared<int>(1);
         ptr1_ = new_ptr::make_shared<int>(4);
         ptr2_ = new_ptr::make_shared<int>(10);
+    }
+};
+
+class unique_ptrTest : public ::testing::Test{
+protected:
+    new_ptr::unique_ptr<int> ptr_u0_;
+    new_ptr::unique_ptr<int> ptr_u1_;
+    void SetUp() override {
+        ptr_u1_ = new_ptr::make_unique<int>(8);
     }
 };
 
@@ -63,6 +74,14 @@ TEST_F(shared_ptrTest, Check_Unique_Function)
     ASSERT_EQ(ptr3_.unique(), true);
     ptr0_ = ptr3_;
     ASSERT_EQ(ptr3_.unique(), false);
+}
+
+TEST_F(unique_ptrTest, Check_Constructors)
+{
+    ASSERT_EQ(ptr_u0_.get(), nullptr);
+    ASSERT_NE(ptr_u1_.get(), nullptr);
+    ptr_u0_ = ptr_u1_;
+    ASSERT_EQ(ptr_u1_.get(), nullptr);
 }
 
 int main(int argc, char** argv)

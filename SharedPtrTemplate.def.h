@@ -8,7 +8,7 @@
  * of number of pointers to an address of memory using a counter.
  * When the counter is 0 the memory is freed in the class destructor.
  *
- * @sa SmartPtrTemplate.h
+ * @sa SharedPtrTemplate.h
  *
  * @section  LICENSE
  *

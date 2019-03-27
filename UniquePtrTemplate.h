@@ -1,11 +1,11 @@
 /*!
  * **************************************************
- * @file SharedPtrTemplate.h
- * @brief This class implements a smart pointer
+ * @file UniquePtrTemplate.h
+ * @brief This class implements a unique pointer
  *
- * shared_ptr class allocates memory and returns a shared
- * pointer for that. Memory management including the sharing
- * and deleting the memory is handled inside the class.
+ * unique_ptr class allocates memory and returns a unique smart
+ * pointer for that. Memory management such as deleting the
+ * memory is handled inside the class.
  *
  * @section  LICENSE
  *
@@ -21,13 +21,13 @@
  * https://www.gnu.org/copyleft/gpl.html
  *
  * @author Hamed Yaghini (hamed84.yaghini@gmail.com)
- * @date 03/20/2019
+ * @date 03/26/2019
  *
  * ****************************************************
  */
 
-#ifndef SHARED_PTR_TEMPLATE
-#define SHARED_PTR_TEMPLATE
+#ifndef UNIQUE_PTR_TEMPLATE
+#define UNIQUE_PTR_TEMPLATE
 
 #include <iostream>
 #include <memory>
@@ -45,9 +45,8 @@ namespace new_ptr{
  * @brief Template implementation of a smart pointer.
  */
 template<typename T>
-class shared_ptr{
-    T *p;        ///< Pointer to the shared memory
-    int *count;  ///< Keeps track of number of shared pointers
+class unique_ptr{
+    T *p;        ///< Pointer to the unique memory
 
 public:
     /*!
@@ -55,7 +54,7 @@ public:
      *
      * @return An instance of shared_ptr
      */
-    shared_ptr();
+    unique_ptr();
 
     /*!
      * @brief Specialized Constructor for shared_ptr
@@ -63,7 +62,7 @@ public:
      * @param inputPtr : Address of the memory that will be shared
      * @return An instance of the shared_ptr
      */
-    shared_ptr(T *inputPtr);
+    unique_ptr(T *inputPtr);
 
     /*!
      * @brief Destructor for shared_ptr
@@ -71,7 +70,7 @@ public:
      * The number of shared pointers will be decreased by 1 and
      * memory will be freed if all the pointers are destructed
      */
-    ~shared_ptr();
+    ~unique_ptr();
 
     /*!
      * @brief Overloaded * operator to return a reference to the shared memory
@@ -86,7 +85,7 @@ public:
      * @param input : The pointer from which we are copying
      * @return shared_ptr& : A copied shared_ptr
      */
-    shared_ptr& operator=(const shared_ptr &input);
+    unique_ptr& operator=(const unique_ptr &input);
 
     /*!
      * @brief Copy Constructor for shared_ptr
@@ -94,36 +93,17 @@ public:
      * @param inputPtr : Reference to a pointer whose data will be used in the new shared pointer
      * @return An instance of shared_ptr
      */
-    shared_ptr(const shared_ptr &inputPtr);
+    unique_ptr(const unique_ptr &inputPtr);
 
-    /*!
-     * @brief Gets the number of pointer that are pointing to the shared memory
-     *
-     * @return int : Number of shared pointers
-     */
-    int use_count();
+    T* get();
 
-    /*!
-     * @brief Returns whether the shared_ptr object does not share ownership
-     * over its pointer with other shared_ptr objects (i.e., it is unique).
-     *
-     * @return bool : True if this is a unique shared_ptr, false otherwise.
-     */
-    bool unique();
 };
 
-/*!
- * @brief This function allocates memory to be used in the shared_ptr instance
- *
- * @param T : Type of the pointer
- * @param Args : Value of the memory where pointer points to
- * @return An instance of the shared_ptr
- */
 template<typename T>
-shared_ptr<T> make_shared(T args);
+unique_ptr<T> make_unique(T arg);
 
 }
 
-#include "SharedPtrTemplate.def.h"
+#include "UniquePtrTemplate.def.h"
 
 #endif
