@@ -100,6 +100,9 @@ public:
 
     T* get();
 
+    T* release();
+
+    void reset(T* new_ptr);
 };
 
 template<typename T>

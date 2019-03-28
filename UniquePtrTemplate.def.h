@@ -103,6 +103,24 @@ T* unique_ptr<T>::get()
 }
 
 template<typename T>
+T* unique_ptr<T>::release()
+{
+    T* tmp = p;
+    p = nullptr;
+    return tmp;
+}
+
+template<typename T>
+void unique_ptr<T>::reset(T* new_ptr)
+{
+    if(p != nullptr)
+    {
+        delete p;
+    }
+    p = new_ptr;
+}
+
+template<typename T>
 unique_ptr<T> make_unique(const T& arg)
 {
     T* tmp = new T(arg);

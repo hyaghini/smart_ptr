@@ -35,6 +35,20 @@ TEST_F(unique_ptrTest, Check_Assignment)
     ASSERT_EQ(ptr_u1_.get(), nullptr);
 }
 
+TEST_F(unique_ptrTest, Check_release)
+{
+    int* tmp = ptr_u1_.release();
+    ASSERT_EQ(*tmp, 8);
+    ASSERT_EQ(ptr_u1_.get(), nullptr);
+}
+
+TEST_F(unique_ptrTest, Check_reset)
+{
+    int* tmp = new int(16);
+    ptr_u1_.reset(tmp);
+    ASSERT_EQ(*ptr_u1_, 16);
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
