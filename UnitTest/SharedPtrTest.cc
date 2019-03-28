@@ -7,7 +7,6 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include "../SharedPtrTemplate.h"
-#include "../UniquePtrTemplate.h"
 
 
 class shared_ptrTest : public ::testing::Test {

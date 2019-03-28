@@ -6,7 +6,6 @@
  */
 #include <gtest/gtest.h>
 #include <iostream>
-#include "../SharedPtrTemplate.h"
 #include "../UniquePtrTemplate.h"
 
 
