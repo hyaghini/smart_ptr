@@ -7,6 +7,17 @@ the new_ptr namespace. This class is a custom implementation
 
 of the shared pointer which is available in C++ Standard Library.
 
+## Configuring CodeCoverage
+Inside the UnitTest build directory
+
+* cmake -DCMAKE_BUILD_TYPE=Debug ..
+* make
+* make TestUniquePtr_coverage
+* make TestSharedPtr_coverage 
+
+* By making these files the corresponding code coverage folder will be created. 
+
+* Open the report with index.html file in the generated code coverage folders in the build folder.
 
 ## How To Use
 

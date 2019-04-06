@@ -81,7 +81,6 @@ template<typename T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr&& input)
 {
     this->p = input.p;
-//    const_cast<unique_ptr&> (input).p = nullptr;
     input.p = nullptr;
     return *this;
 }
@@ -90,7 +89,6 @@ template<typename T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr& input)
 {
     this->p = input.p;
-//    const_cast<unique_ptr&> (input).p = nullptr;
     input.p = nullptr;
 
     return *this;

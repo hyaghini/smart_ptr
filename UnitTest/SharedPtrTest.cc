@@ -1,9 +1,3 @@
-/*
- * tempTest.cc
- *
- *  Created on: Mar 11, 2019
- *      Author: hyaghini
- */
 #include <gtest/gtest.h>
 #include <iostream>
 #include "../SharedPtrTemplate.h"
