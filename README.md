@@ -1,11 +1,9 @@
 # Smart Pointer Implementation  
 
 ## Introduction
- This document is a summary for the class shared_ptr under 
+ This is a basic implementation of smart pointers which is available in C++ Standard Library. Two smart pointers including
 
-the new_ptr namespace. This class is a custom implementation
-
-of the shared pointer which is available in C++ Standard Library.
+shared_ptr and unique_ptr were implemented under the new_ptr namespace. 
 
 ## Configuring CodeCoverage
 Inside the UnitTest build directory

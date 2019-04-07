@@ -40,9 +40,9 @@
 namespace new_ptr{
 
 /*!
- * @class shared_ptr
+ * @class unique_ptr
  *
- * @brief Template implementation of a smart pointer.
+ * @brief Template implementation of a smart unique pointer.
  */
 template<typename T>
 class unique_ptr{
@@ -50,61 +50,102 @@ class unique_ptr{
 
 public:
     /*!
-     * @brief Default constructor for shared_ptr
+     * @brief Default constructor for unique_ptr
      *
-     * @return An instance of shared_ptr
+     * @return An instance of unique_ptr
      */
     unique_ptr();
 
     /*!
-     * @brief Specialized Constructor for shared_ptr
+     * @brief Specialized Constructor for unique_ptr
      *
-     * @param inputPtr : Address of the memory that will be shared
-     * @return An instance of the shared_ptr
+     * @param inputPtr : Address of the memory that will be pointed to
+     * @return An instance of the unique_ptr
      */
     unique_ptr(T *inputPtr);
 
     /*!
-     * @brief Destructor for shared_ptr
+     * @brief Destructor for unique_ptr
      *
-     * The number of shared pointers will be decreased by 1 and
-     * memory will be freed if all the pointers are destructed
+     * Memory will be freed if the pointer is destructed
      */
     ~unique_ptr();
 
     /*!
-     * @brief Copy Constructor for shared_ptr
+     * @brief Copy Constructor for unique_ptr
      *
-     * @param inputPtr : Reference to a pointer whose data will be used in the new shared pointer
-     * @return An instance of shared_ptr
+     * @param inputPtr : An R-Value reference to a pointer whose data will
+     *  be used in the new unique pointer
+     *
+     * @return An instance of unique_ptr
      */
     unique_ptr(unique_ptr&& inputPtr);
 
+    /*!
+     * @brief Copy Constructor for unique_ptr
+     *
+     * @param inputPtr : An L-Value reference to a pointer whose data will
+     *  be used in the new unique pointer
+     *
+     * @return An instance of unique_ptr
+     */
     unique_ptr(unique_ptr& inputPtr);
 
     /*!
-     * @brief Overloaded * operator to return a reference to the shared memory
+     * @brief Overloaded * operator to return a reference to the pointed memory
      *
-     * @return T& : Reference to the shared memory
+     * @return T& : Reference to the unique memory
      */
     T & operator*();
 
     /*!
      * @brief Overloading the assignment operator '='
      *
-     * @param input : The pointer from which we are copying
-     * @return shared_ptr& : A copied shared_ptr
+     * @param input : The R-Value pointer from which we are copying
+     *
+     * @return unique_ptr& : A copied unique_ptr
      */
     unique_ptr& operator=(unique_ptr&& input);
+
+    /*!
+     * @brief Overloading the assignment operator '='
+     *
+     * @param input : The L-Value pointer from which we are copying
+     *
+     * @return unique_ptr& : A copied unique_ptr
+     */
     unique_ptr& operator=(unique_ptr& input);
 
+    /*!
+     * @brief Returns the address of the memory that is being pointed to
+     *
+     * @return T* : pointer to memory
+     */
     T* get();
 
+    /*!
+     * @brief Releases ownership of its stored pointer, by returning its value and
+     * replacing it with a null pointer.
+     *
+     * @return T* : A pointer to the object managed by unique_ptr before the call.
+     */
     T* release();
 
+    /*!
+     * Destroys the object currently managed by the unique_ptr (if any) and takes ownership of new_ptr.
+     *
+     * @param new_ptr : Pointer whose ownership is taken over by the object.
+     */
     void reset(T* new_ptr);
 };
 
+/*!
+ * Constructs an object of type T and wraps it in a unique_ptr.
+ *
+ * @param arg : list of arguments with which an instance of T will be constructed.
+ *
+ * @return unique_ptr<T> : unique_ptr of an instance of type T.
+ */
 template<typename T>
 unique_ptr<T> make_unique(const T& arg);
 
